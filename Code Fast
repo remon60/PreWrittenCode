@@ -1,0 +1,1391 @@
+
+/*
+	 		   سْمِ الّٰلهِ الرَّحْمٰنِ الرَحِيْمِ
+In the name of God, Who is Most Gracious, Most Merciful
+
+    	  		لآ اِلَهَ اِلّا اللّهُ مُحَمَّدٌ رَسُوُل اللّهِ
+There is no god but Allah, Muhammad is the Messenger of Allah.
+*/
+/*
+    Author: MEHEDI ISLAM REMON
+    AUST CSE 44th Batch
+ 
+*/
+#include<bits/stdc++.h>
+#define ll      signed long long int
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+using namespace std;
+
+int main()
+{
+    fast;
+}
+
+
+cin >> ws;   getchar() e kaj na hoile eita string er somoy buffer clear korte
+
+
+///////**************FAST GCD ********//////////
+ll gcd(ll a,ll b)
+{
+    if(a==0)return b;
+    return gcd(b%a,a);
+}
+
+
+
+////*******FOR FAST SORT ASCENDING OR DECENDING**********////////
+bool compare(ll a,ll b)
+{
+    return a<b;
+}
+
+ sort(v.begin(),v.end(),compare);
+
+
+Note: sieve can be memory optimized by using bitset for mark array/vector
+////***********For Primality Test (Sieve of Eratosthenes)*****//////
+
+#include<bits/stdc++.h>
+#define ll signed long long int
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pi acos(-1)
+using namespace std;
+
+ll Prime[300000];
+ll nprime=0;
+bool mark[1000002];
+
+void sieve(ll n)
+{
+    ll i,j;
+
+    mark[1]=1;
+    for(i=4; i<=n; i+=2)
+    {
+        mark[i]=1;
+    }
+
+    Prime[nprime++]=2;
+    for(i=3; i<=n; i+=2)
+    {
+        if(!mark[i])
+        {
+            Prime[nprime++]=i;
+
+            for(j=i*i; j<=n; j+=i*2)
+            {
+                mark[j]=1;
+            }
+        }
+    }
+}
+
+int main()
+{
+    ll n;
+    cin>>n;
+    ll len=sieve(n);
+    for(ll i=0; i<len; i++)
+    {
+        cout<<Prime[i]<<" ";
+    }
+}
+
+
+
+
+///////***********////////BIGMOD////*******
+ll bigmod(ll a,ll b,ll m)
+{
+    ll res=1;
+    while(b)
+    {
+        if(b%2)
+            res=(res*a)%m;
+        b/=2;
+        a=(a*a)%m;
+    }
+    return res%m;
+
+}
+(a^b%M) er eta
+
+
+
+//////******SEGMENTED SIEVE OF ERATOSTHONSIS////*******
+
+//https://www.spoj.com/problems/PRIME1/
+#include <bits/stdc++.h>
+#include <iostream>
+#define MAX 32000
+
+using namespace std;
+
+using ll = long long;
+
+vector<int> primes;
+
+void sieve() {
+    bool isPrime[MAX];
+    for (int i = 0; i < MAX; ++i) isPrime[i] = true;
+    for (int i = 3; i * i <= MAX; i += 2) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= MAX; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    primes.push_back(2);
+    for (int i = 3; i < MAX; i += 2) {
+        if (isPrime[i]) primes.push_back(i);
+    }
+}
+
+void segSieve (ll l, ll r) {
+    bool isPrime[r-l+1];
+    for (int i = 0; i < r - l + 1; ++i) isPrime[i] = true;
+    if (l == 1) isPrime[0] = false;
+    for (int i = 0; primes[i]*primes[i] <= r; ++i) {
+        int currentPrime = primes[i];
+        ll base = (l/currentPrime)*currentPrime;
+        if (base < l) base += currentPrime;
+        for (ll j = base; j <= r; j += currentPrime) {
+            isPrime[j-l] = false;  
+        }
+        if (base == currentPrime) isPrime[base-l] = true;
+    }
+    for (int i = 0; i < r - l + 1; ++i) {
+        if (isPrime[i]) cout << (i+l) << endl;
+    }
+    puts("");
+}
+
+int main() {
+//    freopen("input", "r", stdin);
+    sieve();
+    int t;
+    cin >> t;
+    while (t--) {
+        ll l, r;
+        cin >> l >> r;
+        segSieve(l, r);
+    }
+
+
+    return 0;
+}
+
+
+
+///////*************///////////
+vector<pair<ll,ll>>v;
+v.emplace_back(2,3);
+v.push_back(make_pair(2,3));
+emplace_back() faster than push_back() but very negligable
+
+map,set----> data sort kore rakhe
+unordered map,unordered set----> data sort kore rakhe na
+map er complexity besi logn....abar unordered er complexity o(1),but unordered
+worst case e n porjonto hote pare...so unordered map use korle khub ekta lav
+hoy na....
+unordered map faster than map but very negtigable...khub ekta lav hoy na....
+
+
+
+
+
+
+//////////**************DSU IMPLEMENTATION **********///////
+(efficient implemenation )
+
+void make_set(int v) {
+    parent[v] = v;
+}
+
+int find_set(int v) {
+    if (v == parent[v])
+        return v;
+    return parent[v] = find_set(parent[v]);
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b)
+        parent[b] = a;
+}
+
+
+
+
+
+//////////******************/////////////
+Big Integer Code : 
+
+
+// Java program to find large factorials using BigInteger
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Example
+{
+	// Returns Factorial of N
+	static BigInteger factorial(int N)
+	{
+		// Initialize result
+		BigInteger f = new BigInteger("1"); // Or BigInteger.ONE
+
+		// Multiply f with 2, 3, ...N
+		for (int i = 2; i <= N; i++)
+			f = f.multiply(BigInteger.valueOf(i));
+
+		return f;
+	}
+
+	// Driver method
+	public static void main(String args[]) throws Exception
+	{
+		int N = 20;
+		System.out.println(factorial(N));
+	}
+}
+
+/////////*****************/////////////
+
+ll ncr(ll n,ll r, ll M)
+{
+
+    if(n==r)
+        return 1;
+    ll res;
+    ll high=max(r,(n-r));
+    ll low=min(r,(n-r));
+
+    res=n;
+    ll diff=low;
+    for(ll j=2; j<=low; j++)
+    {
+        n--;
+        res*=n;
+        res/=j;
+    }
+
+    return res;
+}
+
+(nCr er code)
+
+
+/////////************//////////
+Policy Based Data Structures-> print K'th element of set, Print number of elements less than K
+use less_equal in template for ordered multiset
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define ll long long int
+
+template<class T> using oset=tree<T, null_type, less<T>,rb_tree_tag, tree_order_statistics_node_update>;
+
+int main()
+{
+    //insert a number X into the set
+    ll query;
+    cin>>query;
+    oset<ll>s;
+    for(ll i=0; i<query; i++)
+    {
+        int type;
+        cin>>type;
+        if(type==1)
+        {
+            //insert a number X into the set
+            int x;
+            cin>>x;
+            s.insert(x);
+        }
+        else if(type==2)
+        {
+            //print the K'th element
+            int k;
+            cin>>k;
+            cout<<*s.find_by_order(k)<<endl;
+        }
+        else
+        {
+            //print the number of elements less than K
+            int k;
+            cin>>k;
+            cout<<s.order_of_key(k)<<endl;
+        }
+    }
+
+}
+
+
+
+/////////*************Articulation Point***********//////////
+
+
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+
+*/
+#include<bits/stdc++.h>
+#define ll      signed long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+using namespace std;
+
+const ll N=10009;
+vector<ll>adj[N];
+vector<bool>visited;
+vector<ll>dis,low;
+ll timer;
+ll res;
+set<ll>point;
+
+void dfs(ll u,ll par)
+{
+    visited[u]=true;
+    dis[u]=low[u]=timer++;
+    ll child=0;
+    for(auto it:adj[u])
+    {
+        if(it==par) continue;
+        if(visited[it])
+            low[u]=min(low[u],dis[it]);
+        else
+        {
+            dfs(it,u);
+            low[u]=min(low[u],low[it]);
+
+            if(low[it]>=dis[u] && u!=1)
+            {
+                point.insert(u);
+                //cout<<"point "<<u<<endl;
+            }
+            child++;
+        }
+    }
+    if(child>1 && u==1)
+    {
+        point.insert(u);
+    }
+}
+
+void find_articulation_point(ll n)
+{
+    timer=0;
+    visited.assign(n+1,false);
+    dis.assign(n+1,-1);
+    low.assign(n+1,-1);
+
+    dfs(1,-1);
+
+}
+
+int main()
+{
+    while(1)
+    {
+        ll n,m;
+        cin>>n>>m;
+        if(n==0 && m==0)
+            break;
+        for(ll j=0; j<=n; j++)
+        {
+            adj[j].clear();
+        }
+        point.clear();
+
+        for(ll j=0; j<m; j++)
+        {
+            ll u,v;
+            cin>>u>>v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        find_articulation_point(n);
+        cout<<point.size()<<nline;
+
+    }
+}
+
+
+///////////************Bridge Finding*******////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+
+*/
+#include<bits/stdc++.h>
+#define ll      signed long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+using namespace std;
+
+const ll N=720;
+vector<ll>adj[N];
+vector<bool>visited;
+vector<ll>dis,low;
+ll timer;
+vector<pair<ll,ll>>bridges;
+
+void dfs(ll u,ll par)
+{
+    visited[u]=true;
+    dis[u]=low[u]=timer++;
+    for(auto it:adj[u])
+    {
+        if(it==par) continue;
+        if(visited[it])
+            low[u]=min(low[u],low[it]);
+        else
+        {
+            dfs(it,u);
+            low[u]=min(low[u],low[it]);
+
+            if(low[it]>dis[u])
+                bridges.push_back({min(u,it),max(u,it)});
+        }
+    }
+}
+
+void find_bridge()
+{
+    timer=0;
+    visited.assign(N,false);
+    dis.assign(N,-1);
+    low.assign(N,-1);
+    for(ll i=0; i<N; i++)
+    {
+        if(!visited[i])
+            dfs(i,-1);
+    }
+
+}
+bool compare1(const pair<ll,ll> &a,const pair<ll,ll>&b)
+{
+    return (a.first<b.first) || (a.first==b.first && a.second<b.second);
+}
+
+int main()
+{
+    ll t;
+    cin>>t;
+
+    for(ll i=0; i<t; i++)
+    {
+        for(ll j=0; j<N; j++)
+        {
+            adj[j].clear();
+        }
+        bridges.clear();
+
+        ll n,m;
+        cin>>n>>m;
+
+        for(ll j=0; j<m; j++)
+        {
+            ll u,v;
+            cin>>u>>v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        find_bridge();
+        sort(bridges.begin(),bridges.end(),compare1);
+
+        if(bridges.size()==0)
+        {
+            cout<<"Caso #"<<i+1<<nline;
+            cout<<"Sin bloqueos"<<nline;
+        }
+        else
+        {
+            cout<<"Caso #"<<i+1<<nline;
+            cout<<bridges.size()<<nline;
+            for(auto it:bridges)
+                cout<<it.first<<" "<<it.second<<nline;
+        }
+
+    }
+}
+
+
+
+/////////************Segment Tree*********///////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define f       first
+#define s       second
+using namespace std;
+#define mx 100001
+ll arr[mx];
+ll tree[mx * 3];
+void init(ll node, ll b, ll e)
+{
+    if (b == e)
+    {
+        tree[node] = arr[b];
+        return;
+    }
+    ll Left = node * 2;
+    ll Right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    init(Left, b, mid);
+    init(Right, mid + 1, e);
+    tree[node] = tree[Left] + tree[Right];
+}
+ll query(ll node, ll b, ll e, ll i, ll j)
+{
+    if (i > e || j < b)
+        return 0;
+    if (b >= i && e <= j)
+        return tree[node];
+    ll Left = node * 2;
+    ll Right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    ll p1 = query(Left, b, mid, i, j);
+    ll p2 = query(Right, mid + 1, e, i, j);
+    return p1 + p2;
+}
+void update(ll node, ll b, ll e, ll i, ll newvalue)
+{
+    if (i > e || i < b)
+        return;
+    if (b >= i && e <= i)
+    {
+        tree[node] = newvalue;
+        return;
+    }
+    ll Left = node * 2;
+    ll Right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    update(Left, b, mid, i, newvalue);
+    update(Right, mid + 1, e, i, newvalue);
+    tree[node] = tree[Left] + tree[Right];
+}
+int main()
+{
+	fast;
+
+    ll n,q;
+    cin >> n >> q;
+    for(ll i=1; i<=n; i++)
+    {
+        cin>>arr[i];
+    }
+    init(1, 1, n);
+
+
+    while(q--)
+    {
+        ll type;
+        cin>>type;
+        if(type==2)
+        {
+            ll a,b;
+            cin>>a>>b;
+            cout<<query(1,1,n,a,b)<<endl;
+        }
+        else
+        {
+            ll k,r;
+            cin>>k>>r;
+            update(1, 1, n,k,r);
+
+            /*for(ll i=1; i<=3*n; i++)
+                cout<<tree[i]<<" ";
+            cout<<endl;*/
+        }
+    }
+}
+
+
+
+////////***********Segment Tree Lazy Propagation******/////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define f       first
+#define s       second
+using namespace std;
+#define mx 200009
+ll arr[mx];
+struct info
+{
+    ll prop, sum;
+} tree[mx * 3]; //sum ছাড়াও নিচে অতিরিক্ত কত যোগ হচ্ছে সেটা রাখবো prop এ
+void update(ll node, ll b, ll e, ll i, ll j, ll x)
+{
+    if (i > e || j < b)
+        return;
+    if (b >= i && e <= j) //নোডের রেঞ্জ আপডেটের রেঞ্জের ভিতরে
+    {
+        tree[node].sum += ((e - b + 1) * x); //নিচে নোড আছে e-b+1 টি, তাই e-b+1 বার x যোগ হবে এই রেঞ্জে
+        tree[node].prop += x; //নিচের নোডগুলোর সাথে x যোগ হবে
+        return;
+    }
+    ll Left = node * 2;
+    ll Right = (node * 2) + 1;
+    ll mid = (b + e) / 2;
+    update(Left, b, mid, i, j, x);
+    update(Right, mid + 1, e, i, j, x);
+    tree[node].sum = tree[Left].sum + tree[Right].sum + (e - b + 1) * tree[node].prop;
+    //উপরে উঠার সময় পথের নোডগুলো আপডেট হবে
+    //বাম আর ডান পাশের সাম ছাড়াও যোগ হবে নিচে অতিরিক্ত যোগ হওয়া মান
+}
+
+void init(ll node, ll b, ll e)
+{
+    if (b == e)
+    {
+        tree[node].sum = arr[b];
+        tree[node].prop=0;
+        return;
+    }
+    ll Left = node * 2;
+    ll Right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    init(Left, b, mid);
+    init(Right, mid + 1, e);
+    tree[node].sum = tree[Left].sum + tree[Right].sum;
+}
+
+ll query(ll node, ll b, ll e, ll i, ll j, ll carry)
+{
+    if (i > e || j < b)
+        return 0;
+
+    if (b >= i && e <= j)
+        return tree[node].sum + carry * (e - b + 1); //সাম এর সাথে যোগ হবে সেই রেঞ্জের সাথে অতিরিক্ত যত যোগ করতে বলেছে সেটা
+
+    ll Left = node << 1;
+    ll Right = (node << 1) + 1;
+    ll mid = (b + e) >> 1;
+
+    ll p1 = query(Left, b, mid, i, j, carry + tree[node].prop); //প্রপাগেট ভ্যালু বয়ে নিয়ে যাচ্ছে carry ভ্যারিয়েবল
+    ll p2 = query(Right, mid + 1, e, i, j, carry + tree[node].prop);
+
+    return p1 + p2;
+}
+
+int main()
+{
+    fast;
+
+    ll n,q;
+    cin>>n>>q;
+    vector<ll>v(n);
+    for(ll i=1; i<=n; i++)
+    {
+        cin>>arr[i];
+    }
+    init(1,1,n);
+    /*for(ll i=1; i<=3*n; i++)
+    {
+        cout<<tree[i].sum<<" ";
+    }
+    cout<<endl;
+    for(ll i=1; i<=3*n; i++)
+    {
+        cout<<tree[i].prop<<" ";
+    }
+    cout<<endl;*/
+
+    while(q--)
+    {
+        ll type;
+        cin>>type;
+        if(type==1)
+        {
+            ll a,b,x;
+            cin>>a>>b>>x;
+            update(1,1,n,a,b,x);
+        }
+        else
+        {
+            ll pos;
+            cin>>pos;
+            ll carry=0;
+            cout<<query(1,1,n,pos,pos,carry)<<endl;
+        }
+
+    }
+
+
+}
+
+
+
+
+///////*********** Merge Sort Tree *****////////////
+
+Count the numbers smaller than or equal to k in range from array index 'start' to 'end'.
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define f       first
+#define s       second
+using namespace std;
+
+const ll N = (ll)2e5+1;
+ll a[N];
+vector<ll>Merge[4*N];
+
+void init(ll node,ll b,ll e)
+{
+    if(b==e)
+    {
+        Merge[node].push_back(a[b]);
+        return ;
+    }
+    ll left=2*node;
+    ll right=2*node+1;
+    ll mid=(b+e)/2;
+    init(left,b,mid);
+    init(right,mid+1,e);
+
+    ll i=0,j=0;
+    while(i<Merge[left].size() && j<Merge[right].size())
+    {
+        if(Merge[left][i]<=Merge[right][j])
+        {
+            Merge[node].push_back(Merge[left][i]);
+            i++;
+        }
+        else
+        {
+            Merge[node].push_back(Merge[right][j]);
+            j++;
+        }
+    }
+    while(i<Merge[left].size())
+    {
+        Merge[node].push_back(Merge[left][i]);
+        i++;
+    }
+    while(j<Merge[right].size())
+    {
+        Merge[node].push_back(Merge[right][j]);
+        j++;
+    }
+}
+
+
+ll query(ll node,ll b, ll e,ll i,ll j,ll x)
+{
+    if(i>e || j<b)
+    {
+        return 0;
+    }
+    if(b>=i && e<=j)
+    {
+        ll res=upper_bound(Merge[node].begin(),Merge[node].end(),x)-lower_bound(Merge[node].begin(),Merge[node].end(),x);
+        return res;
+    }
+    ll left=2*node;
+    ll right=2*node+1;
+    ll mid=(b+e)/2;
+    ll p1=query(left,b,mid,i,j,x);
+    ll p2=query(right,mid+1,e,i,j,x);
+    return p1+p2;
+}
+int main()
+{
+    ll n,i,j,k,q;
+    cin>>n;
+    for(i=1; i<=n; i++)
+    {
+        cin>>a[i];
+    }
+
+    init(1,1,n);
+    cin>>q;
+    while(q--)
+    {
+        ll l,r,x;
+        cin>>l>>r>>x;
+        ll ans=query(1,1,n,l,r,x);
+        cout<<ans<<endl;
+    }
+}
+
+
+
+/////*********Number of divisor Upto 10^6 in O(N^(1/3))**///////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+
+*/
+#include<bits/stdc++.h>
+#define ll      signed long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define N       400005
+using namespace std;
+
+ll Prime[300000];
+ll nprime=0;
+bool mark[1000009];
+
+void sieve(ll n)
+{
+    ll i,j,limit=sqrt(n*1.)+2;
+
+    mark[1]=1;
+    for(i=4; i<=n; i+=2)
+    {
+        mark[i]=1;
+    }
+
+    Prime[nprime++]=2;
+    for(i=3; i*i<=n; i+=2)
+    {
+        if(!mark[i])
+        {
+            Prime[nprime++]=i;
+
+            if(i<=limit)
+            {
+                for(j=i*i; j<=n; j+=i*2)
+                {
+                    mark[j]=1;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    fast;
+
+    sieve(1000000);
+
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        ll n;
+        cin>>n;
+        ll ans=1;
+        for(ll i=0; i<nprime; i++)
+        {
+            if(Prime[i]*Prime[i]*Prime[i]>n)
+                break;
+            ll cnt=1;
+            while(n%Prime[i]==0)
+            {
+                n/=Prime[i];
+                cnt++;
+            }
+            ans*=cnt;
+        }
+        ll rt=sqrt(n);
+        if(mark[n]==0)
+        {
+            ans*=2;
+        }
+        else if(rt*rt==n && mark[rt]==0)
+        {
+            ans*=3;
+        }
+        else if(n!=1)
+        {
+            ans*=4;
+        }
+        cout<<ans<<endl;
+    }
+}
+
+
+/////////************Modular Inverse*******//////////
+
+ll gcdExtended(ll a,ll b, ll *x,ll *y)
+{
+    if(a==0)
+    {
+        *x=0,*y=1;
+        return b;
+    }
+
+    ll x1,y1;
+    ll gcd=gcdExtended(b%a,a,&x1,&y1);
+
+    *x=y1-(b/a)*x1;
+    *y=x1;
+
+    return gcd;
+
+}
+ll modInverse(ll a,ll m)
+{
+    ll x,y;
+    ll g=gcdExtended(a,m,&x,&y);
+    if(g!=1)
+    {
+        return -1;
+    }
+    else
+    {
+        ll res=(x%m+m)%m;
+        return res;
+    }
+}
+
+
+
+
+////////////***************Basic Mo's Algorithm*********////////////
+
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define f       first
+#define s       second
+using namespace std;
+
+#define N 30010
+#define A 1000010
+#define BLOCK 174
+#define M 200010
+
+ll answer;
+struct query
+{
+    ll l,r,ind;
+} Q[M];
+ll ans[M];
+ll a[N];
+ll cnt[A];
+
+void add(ll index)
+{
+    cnt[a[index]]++;
+    if(cnt[a[index]]==1) answer++;
+}
+
+void remove(ll index)
+{
+    cnt[a[index]]--;
+    if(cnt[a[index]]==0) answer--;
+}
+
+bool cmp(query f,query s)
+{
+    if((f.l/BLOCK)!=(s.l/BLOCK))
+        return (f.l/BLOCK)<(s.l/BLOCK);
+    else
+        return f.r<s.r;
+}
+
+int main()
+{
+    fast;
+
+    ll n,q;
+    scanf("%d",&n);
+    for(ll i=0; i<n; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    scanf("%d",&q);
+    for(ll i=0; i<q; i++)
+    {
+        scanf("%d%d",&Q[i].l,&Q[i].r);
+        Q[i].ind=i;
+        Q[i].l--;
+        Q[i].r--;
+    }
+    sort(Q,Q+q,cmp);
+    ll cl=0,cr=0;
+    for(ll i=0; i<q; i++)
+    {
+        ll left=Q[i].l,right=Q[i].r;
+        while(cl<left)
+            remove(cl),cl++;
+        while(cl>left)
+            add(cl-1),cl--;
+        while(cr<=right)
+            add(cr),cr++;
+        while(cr>(right+1))
+            remove(cr-1),cr--;
+        ans[Q[i].ind]=answer;
+    }
+    for(ll i=0; i<q; i++)
+        printf("%d\n",ans[i]);
+    return 0;
+}
+
+
+
+
+
+//////////************** MO's Algorithm ********////////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      signed long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     LLONG_MAX
+#define f       first
+#define s       second
+using namespace std;
+
+const ll N = (ll)2e5+1;
+struct query
+{
+    ll l,r,i;
+};
+query Q[N];
+ll a[30001],ans[N],freq[1000001];
+ll cnt=0;
+ll block;
+
+bool cmp(query a, query b)
+{
+    if(a.l/block!=b.l/block) return a.l/block<b.l/block;
+    else return a.r<b.r;
+}
+
+void add(ll pos)
+{
+    freq[a[pos]]++;
+    if(freq[a[pos]]==1) cnt++;
+}
+
+void del(ll pos)
+{
+    freq[a[pos]]--;
+    if(freq[a[pos]]==0) cnt--;
+}
+
+int main()
+{
+    ll n,q,i,j,k;
+    cin>>n;
+    block=n/cbrt(n);
+    for(i=0;i<n;i++){
+        cin>>a[i];
+    }
+    cin>>q;
+    for(i=0;i<q;i++){
+        cin>>Q[i].l>>Q[i].r;
+        Q[i].i=i; Q[i].l--; Q[i].r--;
+    }
+    sort(Q,Q+q,cmp);
+
+    ll ML=0,MR=-1;
+    for(i=0;i<q;i++){
+        ll L=Q[i].l;
+        ll R=Q[i].r;
+
+        while(ML>L){
+            ML--, add(ML);
+        }
+
+        while(MR<R){
+            MR++, add(MR);
+        }
+
+        while(ML<L){
+            del(ML), ML++;
+        }
+
+        while(MR>R){
+            del(MR), MR--;
+        }
+
+        ans[Q[i].i]=cnt;
+    }
+    for(i=0;i<q;i++){
+        cout<<ans[i]<<endl;
+    }
+}
+
+
+
+/////************Recursion Problem Matrix Expontiation********/////////////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     intONG_MAX
+#define F       first
+#define S       second
+using namespace std;
+vector<vector<ll>>v(2,vector<ll>(2));
+vector<vector<ll>>res(2,vector<ll>(2));
+vector<vector<ll>>a(2,vector<ll>(2));
+vector<vector<ll>>temp(2,vector<ll>(2));
+
+void calc(ll n)
+{
+    while(n>=1)
+    {
+
+        if(n%2)
+        {
+            temp=res;
+            res[0][0]=(((temp[0][0]*a[0][0])%Mod)+((res[0][1]*a[1][0])%Mod))%Mod;
+            res[0][1]=(((temp[0][0]*a[0][1])%Mod)+((res[0][1]*a[1][1])%Mod))%Mod;
+            res[1][0]=(((temp[1][0]*a[0][0])%Mod)+((res[1][1]*a[1][0])%Mod))%Mod;
+            res[1][1]=(((temp[1][0]*a[0][1])%Mod)+((res[1][1]*a[1][1])%Mod))%Mod;
+
+        }
+
+        n/=2;
+        temp=a;
+        a[0][0]=(((temp[0][0]*temp[0][0])%Mod)+((temp[0][1]*temp[1][0])%Mod))%Mod;
+        a[0][1]=(((temp[0][0]*temp[0][1])%Mod)+((temp[0][1]*temp[1][1])%Mod))%Mod;
+        a[1][0]=(((temp[1][0]*temp[0][0])%Mod)+((temp[1][1]*temp[1][0])%Mod))%Mod;
+        a[1][1]=(((temp[1][0]*temp[0][1])%Mod)+((temp[1][1]*temp[1][1])%Mod))%Mod;
+
+    }
+
+    return;
+}
+
+
+int main()
+{
+    fast;
+
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        ll n;
+        cin>>n;
+        if(n==1)
+        {
+            cout<<1<<endl;
+            continue;
+        }
+        else if(n==2)
+        {
+            cout<<3<<endl;
+            continue;
+        }
+        else if(n==3)
+        {
+            cout<<5<<endl;
+            continue;
+        }
+
+        v[0][0]=1;
+        v[0][1]=2;
+        v[1][0]=1;
+        v[1][1]=0;
+
+        a[0][0]=1;
+        a[0][1]=2;
+        a[1][0]=1;
+        a[1][1]=0;
+
+        res[0][0]=1;
+        res[0][1]=0;
+        res[1][0]=0;
+        res[1][1]=1;
+
+        calc(n);
+        /*for(ll i=0; i<2; i++)
+        {
+            for(ll j=0; j<2; j++)
+            {
+                cout<<res[i][j]<<" ";
+            }
+            cout<<endl;
+        }*/
+        cout<<(res[1][0]+res[1][1])%Mod<<endl;
+
+    }
+
+
+}
+
+
+
+
+//////*******Bitmask DP ********////////
+
+/*
+  Author: MEHEDI ISLAM REMON
+  AUST CSE 44th Batch
+*/
+#include<bits/stdc++.h>
+#define ll      long long int
+#define nline   "\n"
+#define fast    ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(nullptr); cout.tie(nullptr);
+#define pb      push_back
+#define pi      acos(-1)
+#define Mod     1000000007
+#define sn      10000000011
+#define MAX     intONG_MAX
+#define F       first
+#define S       second
+using namespace std;
+
+const int MX=18;
+ll n;
+ll w[MX][MX];
+ll dp[MX][1<<MX];
+
+ll maxweight(ll pos,ll mask)
+{
+    if(pos>n)
+        return 0;
+    if(n-__builtin_popcount(mask)<2)
+        return 0;
+    ll& curr=dp[pos][mask];
+    if(curr!=-1)
+        return dp[pos][mask];
+
+    curr=maxweight(pos+1,mask);
+    if(mask & (1<<pos))
+    {
+
+    }
+    else
+    {
+        for(ll i=pos+1; i<=n; i++)
+        {
+            if(mask&(1<<i))
+            {
+
+            }
+            else
+            {
+                curr=max(curr,w[pos][i]+maxweight(pos+1,mask|(1<<pos)|(1<<i)));
+            }
+        }
+    }
+    return curr;
+
+
+}
+
+int main()
+{
+    fast;
+
+    cin>>n;
+    for(ll i=1; i<=n; i++)
+    {
+        for(ll j=i+1; j<=n; j++)
+        {
+            ll x;
+            cin>>x;
+            w[i][j]=x;
+            w[j][i]=x;
+        }
+    }
+    memset(dp,-1,sizeof(dp));
+
+    cout<<maxweight(1,0)<<endl;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
