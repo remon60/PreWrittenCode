@@ -1,0 +1,29 @@
+vector<pair<ll,ll>>adj[200001];
+ll n,m;
+ll prims(ll source)
+{
+    priority_queue<pair<ll,ll>>pq;
+    vector<bool>vis(n+1);
+    pq.push({0,source});
+    ll ans=0;
+    while(!pq.empty())
+    {
+        auto [cost,node]=pq.top();
+        pq.pop();
+        if(vis[node])continue;
+
+        vis[node]=true;
+        ans+=(-cost);
+        for(auto [child,cost]:adj[node])
+        {
+            pq.push({-cost,child});
+        }
+    }
+    for(ll i=1; i<=n; i++)
+    {
+        if(!vis[i])
+            return -1;
+    }
+    return ans;
+
+}
